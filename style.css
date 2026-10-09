@@ -205,9 +205,15 @@ nav a:hover,
     margin: 0 auto;
     padding: 0 3.5% 45px;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 18px;
     align-items: stretch;
+}
+
+@media (max-width: 1180px) {
+    .projects {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 .project {
@@ -399,6 +405,72 @@ nav a:hover,
     letter-spacing: 0.4px;
 }
 
+/* Hotel management preview */
+
+.hotel-preview {
+    background:
+        radial-gradient(ellipse at top, #162120 0%, #0b1011 80%);
+}
+
+.hotel-table {
+    height: 110px;
+    padding-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.hotel-row {
+    display: grid;
+    grid-template-columns: 0.7fr 1fr 0.8fr 1.3fr;
+    align-items: center;
+    gap: 6px;
+    padding: 1px 6px;
+    border: 1px solid #293d37;
+    background: #14201d;
+    font-size: 8px;
+    line-height: 1.6;
+}
+
+.hotel-row b {
+    color: var(--teal);
+}
+
+.hotel-row span {
+    color: #87958f;
+}
+
+.hotel-row em {
+    font-style: normal;
+    font-size: 7px;
+    letter-spacing: 0.4px;
+}
+
+.hotel-head {
+    border-color: transparent;
+    background: transparent;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 7px;
+    letter-spacing: 0.5px;
+}
+
+.hotel-head span {
+    color: #629f8d;
+}
+
+.status-free {
+    color: var(--teal);
+}
+
+.status-occupied {
+    color: #b6a1d7;
+}
+
+.status-reserved {
+    color: #d4b77f;
+}
+
 /* Future projects preview */
 
 .future-preview {
@@ -565,14 +637,6 @@ footer {
 /* Responsive layout */
 
 @media (max-width: 850px) {
-    .projects {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .project:last-child {
-        grid-column: 1 / -1;
-    }
-
     .intro {
         padding-top: 35px;
     }
@@ -616,10 +680,6 @@ footer {
         grid-template-columns: 1fr;
         padding: 0 15px 35px;
         gap: 14px;
-    }
-
-    .project:last-child {
-        grid-column: auto;
     }
 
     .preview {
