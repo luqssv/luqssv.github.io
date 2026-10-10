@@ -1,105 +1,109 @@
-const canvas = document.getElementById("ecg");
-const ctx = canvas.getContext("2d");
+// Animated background: types "There's no place like ::1/128", glitches, erases, repeats.
+(function () {
+    const lines = document.querySelectorAll(".bg-loopback .bg-line");
+    if (lines.length !== 2) return;
 
-let width = 0;
-let height = 0;
-let animationFrame = 0;
+    const TEXTS = ["There\u2019s no place like", "::1/128"];
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-).matches;
+    const parts = Array.from(lines, (line) => ({
+        line,
+        typed: line.querySelector(".typed"),
+        rest: line.querySelector(".rest"),
+    }));
 
-function resizeCanvas() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Show the first `count` characters; the rest stays invisible but keeps its space.
+    function show(index, count, override) {
+        const text = override || TEXTS[index];
+        parts[index].typed.textContent = text.slice(0, count);
+        parts[index].rest.textContent = TEXTS[index].slice(count);
+    }
 
-    width = window.innerWidth;
-    height = window.innerHeight;
+    function setActive(index) {
+        parts.forEach((p, i) => p.line.classList.toggle("active", i === index));
+    }
 
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
+    // Reduced motion: just show the finished text, no animation.
+    if (reducedMotion) {
+        show(0, TEXTS[0].length);
+        show(1, TEXTS[1].length);
+        return;
+    }
 
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const GLYPHS = ":/0123456789abcdef";
 
-    drawECG();
-}
-
-function drawECG() {
-    ctx.clearRect(0, 0, width, height);
-
-    const spacing = 65;
-    const rows = Math.ceil(height / spacing) + 2;
-
-    for (let row = 0; row < rows; row++) {
-        const baseY = row * spacing;
-
-        ctx.beginPath();
-
-        for (let x = 0; x <= width; x += 3) {
-            // Several overlapping wave frequencies
-            const slowWave = Math.sin(
-                x * 0.008 + row * 1.4 + animationFrame * 0.008
-            ) * 13;
-
-            const mediumWave = Math.sin(
-                x * 0.035 + row * 0.8 + animationFrame * 0.012
-            ) * 5;
-
-            const smallWave = Math.sin(
-                x * 0.11 + row + animationFrame * 0.006
-            ) * 2;
-
-            // Occasional sharp ECG-like peaks
-            const peakPosition = Math.sin(
-                x * 0.018 + row * 2.3
-            );
-
-            const peak = Math.pow(
-                Math.max(0, peakPosition),
-                16
-            ) * Math.sin(
-                x * 0.16 + animationFrame * 0.01
-            ) * 35;
-
-            const y =
-                baseY +
-                slowWave +
-                mediumWave +
-                smallWave +
-                peak;
-
-            if (x === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
+    async function type(index, delay) {
+        setActive(index);
+        for (let i = 1; i <= TEXTS[index].length; i++) {
+            show(index, i);
+            await sleep(delay + Math.random() * delay * 0.5);
         }
-
-        ctx.strokeStyle = row % 3 === 0
-            ? "rgba(66, 190, 163, 0.42)"
-            : "rgba(44, 132, 117, 0.26)";
-
-        ctx.lineWidth = row % 3 === 0 ? 1.3 : 0.9;
-        ctx.stroke();
     }
-}
 
-function animate() {
-    animationFrame++;
-
-    drawECG();
-
-    if (!reducedMotion) {
-        requestAnimationFrame(animate);
+    async function erase(index, delay) {
+        setActive(index);
+        for (let i = TEXTS[index].length - 1; i >= 0; i--) {
+            show(index, i);
+            await sleep(delay);
+        }
     }
-}
 
-window.addEventListener("resize", resizeCanvas);
+    // Briefly scramble a few characters, then settle back.
+    async function glitch(index, duration) {
+        const text = TEXTS[index];
+        const end = Date.now() + duration;
 
-resizeCanvas();
+        while (Date.now() < end) {
+            const scrambled = Array.from(text, (ch) =>
+                Math.random() < 0.45
+                    ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
+                    : ch
+            ).join("");
+            show(index, text.length, scrambled);
+            await sleep(60);
+        }
+        show(index, text.length);
+    }
 
-if (!reducedMotion) {
-    requestAnimationFrame(animate);
-}
+    async function run() {
+        show(0, 0);
+        show(1, 0);
+
+        while (true) {
+            await sleep(600);
+            await type(0, 70);
+            await sleep(400);
+            await type(1, 140);
+            await sleep(3500);
+            await glitch(1, 700);
+            await sleep(500);
+            await erase(1, 55);
+            await erase(0, 25);
+            setActive(-1);
+            await sleep(800);
+        }
+    }
+
+    run();
+})();
+
+// Fade the background phrase as the page scrolls, so it never fights with the content.
+(function () {
+    const background = document.querySelector(".bg-loopback");
+    if (!background) return;
+
+    function update() {
+        const progress = Math.min(1, window.scrollY / (window.innerHeight * 0.22));
+        background.style.opacity = String(1 - progress * 0.9);
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+})();
 
 // Automatic copyright year
 document.getElementById("year").textContent =
