@@ -216,6 +216,67 @@
 
             <article class="project">
                 <div class="project-heading">
+                    <h2>dnslookup</h2>
+                    <span class="badge">c</span>
+                </div>
+
+                <a class="preview dns-preview"
+                   href="https://github.com/luqssv/dnslookup"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Open dnslookup source code">
+
+                    <div class="preview-top">
+                        <span>● ● ●</span>
+                        <span>dnslookup --trace</span>
+                    </div>
+
+                    <div class="dns-flow">
+                        <div class="dns-chain">
+                            <div class="dns-node"><b>.</b><span>ROOT</span></div>
+                            <i class="dns-arrow">→</i>
+                            <div class="dns-node"><b>.com</b><span>TLD</span></div>
+                            <i class="dns-arrow">→</i>
+                            <div class="dns-node"><b>ns1</b><span>AUTH</span></div>
+                        </div>
+
+                        <div class="dns-answer">
+                            <b>A</b>
+                            <span>example.com</span>
+                            <strong>192.0.2.10</strong>
+                            <em>TTL 300</em>
+                        </div>
+                    </div>
+
+                    <div class="diagram-footer">
+                        C · LINUX CLI <span>TRACE · WHOIS</span>
+                    </div>
+                </a>
+
+                <p class="project-subtitle">Command-line DNS lookup tool</p>
+
+                <p class="project-description">
+                    A Linux DNS tool written in C. Looks up A, AAAA, MX, NS,
+                    TXT, CNAME and SOA records, runs reverse lookups, traces
+                    resolution, and batches domains across threads with
+                    table or JSON output.
+                </p>
+
+                <div class="tags">
+                    <span>C</span>
+                    <span>DNS</span>
+                    <span>pthreads</span>
+                    <span>CLI</span>
+                </div>
+
+                <a class="project-link"
+                   href="https://github.com/luqssv/dnslookup"
+                   target="_blank" rel="noopener noreferrer">
+                    View source on GitHub ↗
+                </a>
+            </article>
+
+            <article class="project">
+                <div class="project-heading">
                     <h2>rust packet parser</h2>
                     <span class="badge">rust</span>
                 </div>
