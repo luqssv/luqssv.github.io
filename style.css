@@ -293,10 +293,6 @@ main {
     align-items: stretch;
 }
 
-/* The last card fills the empty space left in the final row */
-.project:last-child {
-    grid-column: span 2;
-}
 
 .project {
     min-width: 0;
@@ -485,6 +481,93 @@ main {
     color: #629f8d;
     font-size: 7px;
     letter-spacing: 0.4px;
+}
+
+/* DNS lookup preview */
+
+.dns-preview {
+    background:
+        radial-gradient(ellipse at center, #182221 0%, #0b1011 75%);
+}
+
+.dns-flow {
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+}
+
+.dns-chain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.dns-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 42px;
+    padding: 3px 8px;
+    border: 1px solid #293d37;
+    background: #14201d;
+    font-size: 8px;
+    line-height: 1.45;
+}
+
+.dns-node b {
+    color: var(--teal);
+}
+
+.dns-node span {
+    color: #87958f;
+    font-size: 7px;
+    letter-spacing: 0.4px;
+}
+
+.dns-arrow {
+    color: #648b7d;
+    font-size: 9px;
+    font-style: normal;
+}
+
+.dns-answer {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 2px 7px;
+    border: 1px solid #293d37;
+    border-left: 2px solid #d4b77f;
+    background: #14201d;
+    font-size: 8px;
+    line-height: 1.6;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.dns-answer b {
+    color: #d4b77f;
+}
+
+.dns-answer span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #87958f;
+}
+
+.dns-answer strong {
+    color: var(--teal);
+    font-weight: 500;
+}
+
+.dns-answer em {
+    margin-left: auto;
+    font-size: 7px;
+    font-style: normal;
+    letter-spacing: 0.4px;
+    color: #629f8d;
 }
 
 /* Rust packet parser preview */
@@ -798,10 +881,6 @@ footer {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .project:last-child {
-        grid-column: 1 / -1;
-    }
-
     .intro {
         padding-top: 35px;
     }
@@ -845,10 +924,6 @@ footer {
         grid-template-columns: 1fr;
         padding: 0 15px 35px;
         gap: 14px;
-    }
-
-    .project:last-child {
-        grid-column: auto;
     }
 
     .preview {
