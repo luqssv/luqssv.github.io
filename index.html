@@ -14,6 +14,8 @@
 
 <body>
 
+    <canvas id="ecg" aria-hidden="true"></canvas>
+
     <header class="topbar">
         <a href="#top" class="logo">luqssv<span>.</span></a>
 
@@ -200,6 +202,67 @@
 
                 <a class="project-link"
                    href="https://github.com/luqssv/port-scanner"
+                   target="_blank" rel="noopener noreferrer">
+                    View source on GitHub ↗
+                </a>
+            </article>
+
+            <article class="project">
+                <div class="project-heading">
+                    <h2>rust packet parser</h2>
+                    <span class="badge">rust</span>
+                </div>
+
+                <a class="preview rust-preview"
+                   href="https://github.com/luqssv/rust-packet-parser"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Open rust packet parser source code">
+
+                    <div class="preview-top">
+                        <span>● ● ●</span>
+                        <span>rust-packet-parser</span>
+                    </div>
+
+                    <div class="layers">
+                        <div class="layer layer-eth">
+                            <b>ETH</b><span>00:11:22:33:44:55</span>
+                            <em>0x0800</em>
+                        </div>
+                        <div class="layer layer-ip">
+                            <b>IPv4</b><span>192.168.1.10 → 192.168.1.20</span>
+                        </div>
+                        <div class="layer layer-tcp">
+                            <b>TCP</b><span>12345 → 80</span>
+                            <em>SYN</em>
+                        </div>
+                        <div class="layer layer-udp">
+                            <b>UDP</b><span>53000 → 53</span>
+                        </div>
+                    </div>
+
+                    <div class="diagram-footer">
+                        RUST + PNET <span>PARSE OK</span>
+                    </div>
+                </a>
+
+                <p class="project-subtitle">Ethernet / IPv4 / TCP / UDP parser</p>
+
+                <p class="project-description">
+                    A modular Rust parser that turns raw bytes into
+                    structured protocol information. Reads hex packets
+                    from a file or captures a limited number of local
+                    frames, with unit tests and CI.
+                </p>
+
+                <div class="tags">
+                    <span>rust</span>
+                    <span>pnet</span>
+                    <span>parsing</span>
+                    <span>TCP/IP</span>
+                </div>
+
+                <a class="project-link"
+                   href="https://github.com/luqssv/rust-packet-parser"
                    target="_blank" rel="noopener noreferrer">
                     View source on GitHub ↗
                 </a>
