@@ -293,6 +293,10 @@ main {
     align-items: stretch;
 }
 
+/* 7 cards = two full rows + one; the last card spans the whole final row */
+.project:last-child {
+    grid-column: 1 / -1;
+}
 
 .project {
     min-width: 0;
