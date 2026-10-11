@@ -406,6 +406,65 @@
 
             <article class="project">
                 <div class="project-heading">
+                    <h2>wake-on-lan</h2>
+                    <span class="badge">c++</span>
+                </div>
+
+                <a class="preview rust-preview"
+                   href="https://github.com/luqssv/Wake-on-LAN"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Open Wake-on-LAN source code">
+
+                    <div class="preview-top">
+                        <span>● ● ●</span>
+                        <span>wol</span>
+                    </div>
+
+                    <div class="layers">
+                        <div class="layer layer-eth">
+                            <b>UDP</b><span>255.255.255.255 : 9</span>
+                            <em>BROADCAST</em>
+                        </div>
+                        <div class="layer layer-ip">
+                            <b>SYNC</b><span>FF FF FF FF FF FF</span>
+                            <em>6 B</em>
+                        </div>
+                        <div class="layer layer-tcp">
+                            <b>MAC</b><span>AA:BB:CC:DD:EE:FF</span>
+                            <em>× 16</em>
+                        </div>
+                    </div>
+
+                    <div class="diagram-footer">
+                        MAGIC PACKET <span>102 BYTES</span>
+                    </div>
+                </a>
+
+                <p class="project-subtitle">Remote power-on over the network</p>
+
+                <p class="project-description">
+                    A cross-platform C++ tool that builds and broadcasts a
+                    Wake-on-LAN magic packet over UDP to power on a PC
+                    remotely. Validates input and reports socket and send
+                    errors, with unit tests and CI.
+                </p>
+
+                <div class="tags">
+                    <span>C++</span>
+                    <span>UDP</span>
+                    <span>sockets</span>
+                    <span>CMake</span>
+                </div>
+
+                <a class="project-link"
+                   href="https://github.com/luqssv/Wake-on-LAN"
+                   target="_blank" rel="noopener noreferrer">
+                    View source on GitHub ↗
+                </a>
+            </article>
+
+            <article class="project">
+                <div class="project-heading">
                     <h2>future projects</h2>
                     <span class="badge upcoming">in progress</span>
                 </div>
